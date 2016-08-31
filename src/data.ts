@@ -24,18 +24,14 @@ const initialState: State = Immutable.fromJS({
   ]
 })
 
-export function getFilterBy(state: State): string {
-  return state.get('filterBy')
+function simpleSelector<Result> (...keys: string[]): (State) => Result {
+  return (state) => state.getIn(keys)
 }
-export function getReverseSort (state: State): boolean {
-  return state.get('reverseSort')
-}
-export function getTitle (state: State): string {
-  return state.get('title')
-}
-export function getAllItems (state: State): Immutable.List<Item> {
-  return state.get('items')
-}
+
+export const getFilterBy = simpleSelector<string>('filterBy')
+export const getReverseSort = simpleSelector<boolean>('reverseSort')
+export const getTitle = simpleSelector<string>('title')
+export const getAllItems = simpleSelector<Immutable.List<Item>>('items')
 export const getItems = createSelector(
   getAllItems,
   getFilterBy,
