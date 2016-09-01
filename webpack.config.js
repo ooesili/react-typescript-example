@@ -1,5 +1,8 @@
 module.exports = {
-  entry: './src/index.tsx',
+  entry: [
+    './src/index.tsx',
+    './src/index.jade'
+  ],
   output: {
     filename: 'app.js',
     path: './dist'
