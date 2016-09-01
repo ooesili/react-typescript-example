@@ -1,7 +1,8 @@
 {
   "scripts": {
     "start": "webpack-dev-server --content-base=dist",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "postinstall": "typings install"
   },
   "private": true,
   "dependencies": {
