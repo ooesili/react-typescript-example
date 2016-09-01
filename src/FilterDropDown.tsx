@@ -1,10 +1,10 @@
 import * as React from 'react'
 
 export interface FilterDropDownProps {
-  setFilterBy: (string) => void
+  setFilterBy: (filterKey: string) => void
 }
 
-export default function ({setFilterBy}) {
+export default function ({setFilterBy}: FilterDropDownProps) {
   return (
     <select onChange={(e) => {
       const target = (e.target as HTMLSelectElement)

@@ -24,7 +24,7 @@ const initialState: State = Immutable.fromJS({
   ]
 })
 
-function simpleSelector<Result> (...keys: string[]): (State) => Result {
+function simpleSelector<Result> (...keys: string[]): (state: State) => Result {
   return (state) => state.getIn(keys)
 }
 
@@ -56,7 +56,7 @@ reducerMap[TOGGLE_SORT] = (state, {type}) => {
 }
 
 const SET_FILTER_BY = 'SET_FILTER_BY'
-export const setFilterBy: (string) => Action<string> = createAction(SET_FILTER_BY)
+export const setFilterBy: (filterKey: string) => Action<string> = createAction(SET_FILTER_BY)
 reducerMap[SET_FILTER_BY] = (state, {type, payload}) => {
   return state.set('filterBy', payload)
 }
