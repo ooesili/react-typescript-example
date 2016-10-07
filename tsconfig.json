@@ -4,9 +4,11 @@
     "module": "commonjs",
     "noImplicitAny": true,
     "noImplicitReturns": true,
+    "noImplicitThis": true,
     "outDir": "./dist/",
     "sourceMap": true,
-    "target": "es5"
+    "target": "es5",
+    "strictNullChecks": false
   },
   "exclude": [
     "node_modules"
