@@ -5,6 +5,8 @@
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "outDir": "./dist/",
     "sourceMap": true,
     "target": "es5",
@@ -12,9 +14,5 @@
   },
   "exclude": [
     "node_modules"
-  ],
-  "files": [
-    "./typings/index.d.ts",
-    "./src/index.tsx"
   ]
 }

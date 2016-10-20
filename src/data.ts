@@ -1,4 +1,3 @@
-import * as Immutable from 'immutable'
 import { createSelector } from 'reselect'
 import {
   createAction,
@@ -6,40 +5,36 @@ import {
   ReducerMap,
   Action
 } from 'redux-actions'
+import { State, stateDecoder } from './State'
 
-export type State = Immutable.Map<string, any>
-export type Item = Immutable.Map<string, any>
-
-const initialState: State = Immutable.fromJS({
-  title: 'Menu',
-  filterBy: 'mexican',
-  reverseSort: false,
-  items: [
-    {id: 1, name: 'tacos', type: 'mexican'},
-    {id: 2, name: 'burrito', type: 'mexican'},
-    {id: 3, name: 'tostada', type: 'mexican'},
-    {id: 4, name: 'mushy peas', type: 'english'},
-    {id: 5, name: 'fish and chips', type: 'english'},
-    {id: 6, name: 'black pudding', type: 'english'}
+const initialStateJSON = `{
+  "title": "Menu",
+  "filterBy": "mexican",
+  "reverseSort": false,
+  "items": [
+    {"id": 1, "name": "tacos", "type": "mexican"},
+    {"id": 2, "name": "burrito", "type": "mexican"},
+    {"id": 3, "name": "tostada", "type": "mexican"},
+    {"id": 4, "name": "mushy peas", "type": "english"},
+    {"id": 5, "name": "fish and chips", "type": "english"},
+    {"id": 6, "name": "black pudding", "type": "english"}
   ]
-})
+}`
 
-function simpleSelector<Result> (...keys: string[]): (state: State) => Result {
-  return (state) => state.getIn(keys)
-}
+const initialState: State = stateDecoder.decodeJSON(initialStateJSON)
 
-export const getFilterBy = simpleSelector<string>('filterBy')
-export const getReverseSort = simpleSelector<boolean>('reverseSort')
-export const getTitle = simpleSelector<string>('title')
-export const getAllItems = simpleSelector<Immutable.List<Item>>('items')
+export const getFilterBy = (state: State) => state.filterBy
+export const getReverseSort = (state: State) => state.reverseSort
+export const getTitle = (state: State) => state.title
+export const getAllItems = (state: State) => state.items
 export const getItems = createSelector(
   getAllItems,
   getFilterBy,
   getReverseSort,
   (items, filterKey, shouldReverse) => {
     const filteredAndSorted = items
-      .filter((item) => item.get('type') === filterKey)
-      .sortBy((item) => item.get('name'))
+      .filter((item) => item.type === filterKey)
+      .sortBy((item) => item.name)
     if (shouldReverse) {
       return filteredAndSorted.reverse()
     }
@@ -47,18 +42,18 @@ export const getItems = createSelector(
   }
 )
 
-const reducerMap: ReducerMap<any, any> = {}
+const reducerMap: ReducerMap<State, any> = {}
 
 const TOGGLE_SORT = 'TOGGLE_SORT'
 export const toggleSort: () => Action<void> = createAction(TOGGLE_SORT)
-reducerMap[TOGGLE_SORT] = (state, {type}) => {
-  return state.set('reverseSort', !state.get('reverseSort'))
+reducerMap[TOGGLE_SORT] = (state) => {
+  return state.merge({reverseSort: !state.reverseSort})
 }
 
 const SET_FILTER_BY = 'SET_FILTER_BY'
 export const setFilterBy: (filterKey: string) => Action<string> = createAction(SET_FILTER_BY)
-reducerMap[SET_FILTER_BY] = (state, {type, payload}) => {
-  return state.set('filterBy', payload)
+reducerMap[SET_FILTER_BY] = (state, {payload: filterBy}) => {
+  return state.merge({filterBy})
 }
 
 export default handleActions(reducerMap, initialState)

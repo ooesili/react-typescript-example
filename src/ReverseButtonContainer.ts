@@ -1,5 +1,6 @@
 import { connect, Dispatch } from 'react-redux'
-import { State, getReverseSort, toggleSort } from './data'
+import { State } from './State'
+import { getReverseSort, toggleSort } from './data'
 import ReverseButton from './ReverseButton'
 
 export default connect(

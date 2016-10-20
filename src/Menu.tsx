@@ -1,10 +1,10 @@
-import * as Immutable from 'immutable'
+import { List } from 'immutable'
 import * as React from 'react'
-import { Item } from './data'
+import { Item } from './Item'
 
 export interface MenuProps {
   title: string
-  items: Immutable.List<Item>
+  items: List<Item>
 }
 
 export default function Menu ({title, items}: MenuProps) {
@@ -13,7 +13,7 @@ export default function Menu ({title, items}: MenuProps) {
       <h1>{title}</h1>
       <ul>
         {items.map((item, index) => (
-          <li key={index}>{item.get('name')}</li>
+          <li key={index}>{item.name}</li>
         ))}
       </ul>
     </div>

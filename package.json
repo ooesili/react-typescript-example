@@ -17,6 +17,8 @@
     "reselect": "^2.5.3",
     "source-map-loader": "^0.1.5",
     "ts-loader": "^0.8.2",
+    "type-safe-immutable-record": "0.0.1",
+    "type-safe-json-decoder": "0.0.2",
     "typescript": "^2.0.3",
     "typings": "^1.4.0",
     "webpack": "^1.13.2"
